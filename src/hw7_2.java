@@ -1,5 +1,5 @@
 /*
- * HackerRank link:https://www.hackerrank.com/contests/cst370-su20-hw7/challenges/radix-sort-4-1/submissions/code/1324191099
+ * HackerRank link:https://www.hackerrank.com/contests/cst370-su20-hw7/challenges/coin-row/submissions/code/1324207180
  * Title: hw7_2.java
  * Abstract: Reads in numbers by user and solves coin sort problem
  * Author: Adam Houser
@@ -18,6 +18,7 @@ public class hw7_2 {
 
         ArrayList<Integer> coins = new ArrayList();
         ArrayList<Integer> values = new ArrayList();
+        ArrayList<Integer> maxesOutput = new ArrayList();
 
         Scanner in = new Scanner(System.in);
 
@@ -43,18 +44,23 @@ public class hw7_2 {
             values.add(coinCost(coins, maxes, i));
         }
 
-        // best set isn't calculating right yet.  Need to work on the logic to read maxes array correctly
-        System.out.print("Best set:");
+        // use our maxes[] to backtrack and find the coins picked up
         for (int i = num; i > 0; i--) {
             if(maxes[i] == i) {
-                System.out.print(i + " ");
+                maxesOutput.add(i);
+                i--;
             }
+        }
+
+        // reverse maxesOutput since we built it backwards
+        Collections.reverse(maxesOutput);
+
+        System.out.print("Best set:");
+        for (int i = 0; i < maxesOutput.size(); i++) {
+            System.out.print(maxesOutput.get(i) + " ");
         }
         System.out.println();
         System.out.println("Max value:" + values.get(num));
-        for (int i = 1; i < num+1; i++) {
-            System.out.print(maxes[i] + " ");
-        }
     }
 
     static int coinCost(ArrayList<Integer> coins, int[] maxes, int index)
